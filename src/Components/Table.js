@@ -8,7 +8,8 @@ function Table(props) {
             date={item.date}
             location={item.location}
             description={item.description}
-            key={""}
+            key={item.id}
+            onDelete={}
 
         />)
     return (

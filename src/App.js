@@ -29,6 +29,7 @@ class App extends React.Component{
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleChange(event){
@@ -45,9 +46,13 @@ class App extends React.Component{
     for (let input of inputNodeList){
       input.value = ""
     }
-    //this.setState({[id]:randomNum})
-    const {amount, date, location, description} = this.state
-    this.setState({expenseItems:[...this.state.expenseItems,{amount,date,location,description}]})
+    this.setState({id:randomNum})
+    const {id,amount, date, location, description} = this.state
+    this.setState({expenseItems:[...this.state.expenseItems,{id,amount,date,location,description}]})
+  }
+
+  handleDelete(){
+
   }
 
   render() {
@@ -56,7 +61,7 @@ class App extends React.Component{
           <header>Expense Tracker</header>
           <Fields handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
           <br/>
-          <Table data={this.state.expenseItems}/>
+          <Table data={this.state.expenseItems} onDelete={this.handleDelete}/>
 
 
         </div>

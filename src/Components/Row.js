@@ -7,6 +7,7 @@ function Row(props){
             <td>{props.date}</td>
             <td>{props.location}</td>
             <td>{props.description}</td>
+            <button>Delete</button>
         </tr>
 
     )
