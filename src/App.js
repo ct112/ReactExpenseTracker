@@ -3,7 +3,7 @@ import './App.css'
 import Fields from './Components/Fields'
 import Table from "./Components/Table"
 import PropTypes from 'prop-types'
-import Row from "./Components/Row"
+
 
 class App extends React.Component{
   constructor() {
@@ -13,54 +13,51 @@ class App extends React.Component{
       date:"",
       location:"",
       description:"",
-
-
-      expenseItems:[
-          { amount:"1",
-            date:"2",
-            location:"bobs house",
-            description:"blah"
-          },
-          {
-            amount:"2",
-            date:"3",
-            location: "bills house",
-            description: "yeah"
-          }]
+      id:"",
+      expenseItems:[{
+          amount:"1",
+          date:"2",
+          location:"bobs house",
+          description:"blah"
+      },
+      {
+        amount:"2",
+        date:"3",
+        location: "bills house",
+        description: "yeah"
+      }]
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event){
     event.preventDefault()
+
     const {value,name} = event.target
     console.log(value)
     this.setState({[name] : value})
+
   }
-  handelSubmit(){
+  handleSubmit(){
+    const randomNum = parseInt(Math.random()*10000)
     const inputNodeList = document.getElementsByTagName("input")
     for (let input of inputNodeList){
       input.value = ""
     }
+    //this.setState({[id]:randomNum})
+    const {amount, date, location, description} = this.state
+    this.setState({expenseItems:[...this.state.expenseItems,{amount,date,location,description}]})
   }
 
   render() {
-    const rowsData = this.state.expenseItems.map(item=>
-        <Row
-            amount={item.amount}
-            date={item.date}
-            location={item.location}
-            description={item.description}
-
-        />)
-
-    return (
+      return (
         <div>
           <header>Expense Tracker</header>
-          <Fields handleChange={this.handleChange} handleSubmit={this.handelSubmit} />
+          <Fields handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
           <br/>
-          <Table/>
-            {rowsData}
+          <Table data={this.state.expenseItems}/>
+
 
         </div>
     )
