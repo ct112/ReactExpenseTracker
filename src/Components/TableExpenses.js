@@ -17,7 +17,7 @@ function TableExpenses(props) {
         />)
     return (
          <table class="table">
-             <thead >
+             <thead class="thead-light">
                 <th>Expense</th>
                 <th>Date</th>
                 <th>Location</th>
