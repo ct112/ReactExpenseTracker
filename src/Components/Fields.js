@@ -4,7 +4,7 @@ function Fields(props){
     return (
         <div>
             <label>Expense:</label>
-            <input name="amount" type="text" onChange={event => props.handleChange(event)}/>
+            <input name="amount" type="number" onChange={event => props.handleChange(event)}/>
             <label>Date:</label>
             <input name="date" type="date" onChange={event => props.handleChange(event)}/>
             <label>Location:</label>

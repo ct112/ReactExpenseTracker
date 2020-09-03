@@ -22,6 +22,7 @@ class App extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
   }
+  //on mount get items from local storage
 
   handleChange(event){
     event.preventDefault()
@@ -31,13 +32,23 @@ class App extends React.Component{
 
   }
   handleSubmit(){
-    //let id = this.state.expenseItems.length === 0 ? 1: this.state.expenseItems.length++
+    if ([this.state.amount,this.state.date,this.state.location,this.state.description].includes("")){
+      alert("Please fill out all fields!")
+      return
+    }
+    let id = this.state.expenseItems.length === 0 ? 1: this.state.expenseItems.length + 1
+    console.log(id)
     const inputNodeList = document.getElementsByTagName("input")
     for (let input of inputNodeList){
       input.value = ""
     }
+    const clone = require('rfdc')()
+    const clonedExpenseItems = clone(this.state.expenseItems)
+
     const {amount, date, location, description} = this.state
-    this.setState({expenseItems:[...this.state.expenseItems,{  amount, date, location, description}]})
+    this.setState({expenseItems:[...this.state.expenseItems,{ amount, date, location, description, id}]})
+    this.setState({amount:""})
+    //add key value pair to local storage
   }
 
   handleDelete(index) {
@@ -46,6 +57,7 @@ class App extends React.Component{
     clonedExpenseItems.splice(index,1)
     console.log("hello")
     this.setState({expenseItems:clonedExpenseItems})
+    //remove key value pair from local storage
 
 
     //console.log(index)
