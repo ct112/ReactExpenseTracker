@@ -32,14 +32,14 @@ class App extends React.Component{
   }
   handleSubmit(){
     if ([this.state.amount,this.state.date,this.state.location,this.state.description].includes("")){
-      alert("Please fill out all fields!")
+      alert("Please fill out all fields!") // turn this into a bootstrap alert with conditional display
       return
     }
     let id = this.state.expenseItems.length === 0 ? 1: this.state.expenseItems.length + 1
     const clone = require('rfdc')()
     const clonedExpenseItems = clone(this.state.expenseItems)
 
-    const {amount, date, location, description} = this.state
+    const {amount, date, location, description} = this.state //figure out why filter didn't work
     this.setState({expenseItems:[...this.state.expenseItems,{ amount, date, location, description, id}]})
     this.setState({amount:""})
     this.clearInputs()
@@ -70,7 +70,7 @@ class App extends React.Component{
   render() {
       return (
         <div>
-          <header>Expense Tracker</header>
+          <header>Expense Tracker</header>// restyle this
           <Fields handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
           <br/>
           <TableExpenses data={this.state.expenseItems} handleDelete={this.handleDelete}/>
