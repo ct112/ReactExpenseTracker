@@ -8,7 +8,7 @@ function Fields(props){
             <label>Date:</label>
             <input name="date" type="date" onChange={event => props.handleChange(event)}/>
             <label>Location:</label>
-            <input name="location"type="text" onChange={event => props.handleChange(event)}/>
+            <input name="location" type="text" onChange={event => props.handleChange(event)}/>
             <label>Description:</label>
             <input name = "description" type="text" onChange={event => props.handleChange(event)}/>
             <button type="submit" onClick={props.handleSubmit}>Submit</button>

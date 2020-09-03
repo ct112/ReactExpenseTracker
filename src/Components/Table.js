@@ -2,14 +2,16 @@ import React from "react"
 import Row from "./Row";
 
 function Table(props) {
-        const rowsData = props.data.map( item=>
+    console.log(props.data)
+        const rowsData = props.data.map( (item,index)=>
         <Row
             amount={item.amount}
             date={item.date}
             location={item.location}
             description={item.description}
-            key={item.id}
-            onDelete={}
+            //key={index}
+            handleDelete={props.handleDelete}
+            index={index}
 
         />)
     return (
