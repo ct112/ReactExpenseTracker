@@ -1,4 +1,5 @@
 import React from "react"
+import {Button} from "react-bootstrap"
 
 function Row(props){
     return (
@@ -8,7 +9,7 @@ function Row(props){
             <td>{props.location}</td>
             <td>{props.description}</td>
 
-            <button data-id={props.key} onClick={()=>props.handleDelete(props.index)}>Delete</button>
+            <button variant="primary" className="mr-2" data-id={props.key} onClick={()=>props.handleDelete(props.index)}>Delete</button>
 
         </tr>
 

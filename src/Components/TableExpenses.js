@@ -1,7 +1,8 @@
 import React from "react"
 import Row from "./Row";
+import {Table} from "react-bootstrap"
 
-function Table(props) {
+function TableExpenses(props) {
     console.log(props.data)
         const rowsData = props.data.map( (item,index)=>
         <Row
@@ -15,7 +16,7 @@ function Table(props) {
 
         />)
     return (
-         <table >
+         <table class="table">
              <thead >
                 <th>Expense</th>
                 <th>Date</th>
@@ -30,4 +31,4 @@ function Table(props) {
     )
 }
 
-export default Table
+export default TableExpenses

@@ -1,10 +1,9 @@
 import React from 'react'
 import './App.css'
 import Fields from './Components/Fields'
-import Table from "./Components/Table"
+import TableExpenses from "./Components/TableExpenses"
 import PropTypes from 'prop-types'
 //requires package rfdc
-
 
 class App extends React.Component{
   constructor() {
@@ -37,18 +36,20 @@ class App extends React.Component{
       return
     }
     let id = this.state.expenseItems.length === 0 ? 1: this.state.expenseItems.length + 1
-    console.log(id)
-    const inputNodeList = document.getElementsByTagName("input")
-    for (let input of inputNodeList){
-      input.value = ""
-    }
     const clone = require('rfdc')()
     const clonedExpenseItems = clone(this.state.expenseItems)
 
     const {amount, date, location, description} = this.state
     this.setState({expenseItems:[...this.state.expenseItems,{ amount, date, location, description, id}]})
     this.setState({amount:""})
+    this.clearInputs()
     //add key value pair to local storage
+  }
+  clearInputs(){
+    const inputNodeList = document.getElementsByTagName("input")
+    for (let input of inputNodeList){
+      input.value = ""
+    }
   }
 
   handleDelete(index) {
@@ -58,8 +59,6 @@ class App extends React.Component{
     console.log("hello")
     this.setState({expenseItems:clonedExpenseItems})
     //remove key value pair from local storage
-
-
     //console.log(index)
     //let filteredData = this.state.expenseItems.filter((item,i) =>i !== index)
     //console.log(filteredData)
@@ -76,7 +75,8 @@ class App extends React.Component{
           <header>Expense Tracker</header>
           <Fields handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
           <br/>
-          <Table data={this.state.expenseItems} handleDelete={this.handleDelete}/>
+          <TableExpenses data={this.state.expenseItems} handleDelete={this.handleDelete}/>
+
 
 
         </div>
