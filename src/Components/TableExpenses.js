@@ -3,17 +3,15 @@ import Row from "./Row";
 import {Table} from "react-bootstrap"
 
 function TableExpenses(props) {
-    console.log(props.data)
         const rowsData = props.data.map( (item,index)=>
         <Row
             amount={item.amount}
             date={item.date}
             location={item.location}
             description={item.description}
-            //key={index}
+            key={index}
             handleDelete={props.handleDelete}
             index={index}
-
         />)
     return (
          <table class="table">

@@ -14,10 +14,8 @@ class App extends React.Component {
       date:"",
       location:"",
       description:"",
-      id:"",
-      fieldsEmpty:false,
-      expenseItems:[
-      ]
+      fieldsFilled:false,
+      expenseItems:[]
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -38,7 +36,6 @@ class App extends React.Component {
     event.preventDefault()
     const {value,name} = event.target
     this.setState({[name] : value})
-
   }
 
   handleSubmit() {
@@ -63,7 +60,7 @@ class App extends React.Component {
   }
 
   inputValidation() {
-    this.setState({fieldsEmpty:true},()=> setTimeout(()=>this.setState({fieldsEmpty:false}),2000))
+    this.setState({fieldsFilled:true},()=> setTimeout(()=>this.setState({fieldsFilled:false}),2000))
   }
 
   clearInputs() {
@@ -78,13 +75,10 @@ class App extends React.Component {
         <div>
           <Header/>
           <br/>
-          <ErrorMessage filled={this.state.fieldsEmpty}/>
+          <ErrorMessage filled={this.state.fieldsFilled}/>
           <Fields handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
           <br/>
           <TableExpenses data={this.state.expenseItems} handleDelete={this.handleDelete}/>
-
-
-
         </div>
     )
   }

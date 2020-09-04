@@ -4,13 +4,11 @@ import {Modal} from "react-bootstrap"
 function ErrorMessage(props) {
     return (
         <Modal show={props.filled}>
-            <Modal.Header>
+            <Modal.Body>
               Please fill out all fields.
-            </Modal.Header>
+            </Modal.Body>
         </Modal>
     )
-
-
 }
 
 export default ErrorMessage

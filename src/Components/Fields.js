@@ -33,9 +33,4 @@ function Fields(props){
     )
 }
 
-
-
-
-
-
 export default Fields
