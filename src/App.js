@@ -40,17 +40,16 @@ class App extends React.Component {
       alert("Please fill out all fields!") // turn this into a bootstrap alert with conditional display
       return
     }
-    let id = this.state.expenseItems.length === 0 ? 1: this.state.expenseItems.length + 1
     const clone = require('rfdc')()
     const clonedExpenseItems = clone(this.state.expenseItems)
     const {amount, date, location, description} = this.state //figure out why filter didn't work
     let expenses;
     let dataLocalStorage;
     if (localStorage.getItem("expenses") === null){
-      dataLocalStorage = [{id,amount,date,location,description}]
+      dataLocalStorage = [{amount,date,location,description}]
       localStorage.setItem("expenses", JSON.stringify(dataLocalStorage))
     } else {
-      dataLocalStorage = {id,amount,date,location,description}
+      dataLocalStorage = {amount,date,location,description}
       let localStorageArray = JSON.parse(localStorage.getItem("expenses"))
       localStorageArray.push(dataLocalStorage)
       localStorage.setItem("expenses",JSON.stringify(localStorageArray))
@@ -59,7 +58,7 @@ class App extends React.Component {
 
 
 
-    this.setState({expenseItems:[...this.state.expenseItems,{ amount, date, location, description, id}]})
+    this.setState({expenseItems:[...this.state.expenseItems,{ amount, date, location, description}]})
     this.setState({amount:""})
     this.clearInputs()
   }
@@ -68,8 +67,12 @@ class App extends React.Component {
     const clone = require('rfdc')()
     const clonedExpenseItems = clone(this.state.expenseItems)
     clonedExpenseItems.splice(index,1)
-    console.log("hello")
-    this.setState({expenseItems:clonedExpenseItems})
+    this.setState({expenseItems:clonedExpenseItems},()=>localStorage.setItem("expenses", JSON.stringify(this.state.expenseItems))) //set state is asynchronous in event handlers
+    //
+    //console.log(this.state.expenseItems)
+    //localStorage.setItem("expenses", JSON.stringify(this.state.expenseItems))
+
+      //
     //const localStorageKey = index +1
     //window.localStorage.removeItem(localStorageKey)
     //remove key value pair from local storage
