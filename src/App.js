@@ -39,12 +39,10 @@ class App extends React.Component {
   }
 
   handleSubmit() {
-    if ([this.state.amount,this.state.date,this.state.location,this.state.description].includes("")){
+    if ([this.state.amount,this.state.date,this.state.location,this.state.description].includes("")) {
       this.inputValidation()
       return
     }
-    const clone = require('rfdc')()
-    const clonedExpenseItems = clone(this.state.expenseItems)
     const {amount, date, location, description} = this.state
     this.setState({expenseItems:[...this.state.expenseItems,{ amount, date, location, description}]})
     this.setState({amount:""})
