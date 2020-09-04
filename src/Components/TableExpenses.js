@@ -25,8 +25,7 @@ function TableExpenses(props) {
              </thead>
                 <tbody>
                 {rowsData}
-
-             </tbody>
+                </tbody>
         </table>
     )
 }

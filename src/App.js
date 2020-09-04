@@ -23,41 +23,29 @@ class App extends React.Component {
     this.componentDidMount = this.componentDidMount.bind(this)
   }
   componentDidMount() {
-
+    const data = localStorage.getItem("expenses") === null ? [] : JSON.parse(localStorage.getItem("expenses"))
+    this.setState({expenseItems:data})
   }
 
-  //on mount get items from local storage
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    localStorage.setItem("expenses", JSON.stringify(nextState.expenseItems))
+  }
 
   handleChange(event) {
     event.preventDefault()
     const {value,name} = event.target
-    console.log(value)
     this.setState({[name] : value})
 
   }
+
   handleSubmit() {
     if ([this.state.amount,this.state.date,this.state.location,this.state.description].includes("")){
-      alert("Please fill out all fields!") // turn this into a bootstrap alert with conditional display
+      alert("Please fill out all fields!")
       return
     }
     const clone = require('rfdc')()
     const clonedExpenseItems = clone(this.state.expenseItems)
-    const {amount, date, location, description} = this.state //figure out why filter didn't work
-    let expenses;
-    let dataLocalStorage;
-    if (localStorage.getItem("expenses") === null){
-      dataLocalStorage = [{amount,date,location,description}]
-      localStorage.setItem("expenses", JSON.stringify(dataLocalStorage))
-    } else {
-      dataLocalStorage = {amount,date,location,description}
-      let localStorageArray = JSON.parse(localStorage.getItem("expenses"))
-      localStorageArray.push(dataLocalStorage)
-      localStorage.setItem("expenses",JSON.stringify(localStorageArray))
-    }
-
-
-
-
+    const {amount, date, location, description} = this.state
     this.setState({expenseItems:[...this.state.expenseItems,{ amount, date, location, description}]})
     this.setState({amount:""})
     this.clearInputs()
@@ -67,21 +55,8 @@ class App extends React.Component {
     const clone = require('rfdc')()
     const clonedExpenseItems = clone(this.state.expenseItems)
     clonedExpenseItems.splice(index,1)
-    this.setState({expenseItems:clonedExpenseItems},()=>localStorage.setItem("expenses", JSON.stringify(this.state.expenseItems))) //set state is asynchronous in event handlers
-    //
-    //console.log(this.state.expenseItems)
-    //localStorage.setItem("expenses", JSON.stringify(this.state.expenseItems))
-
-      //
-    //const localStorageKey = index +1
-    //window.localStorage.removeItem(localStorageKey)
-    //remove key value pair from local storage
-    //console.log(index)
-    //let filteredData = this.state.expenseItems.filter((item,i) =>i !== index)
-    //console.log(filteredData)
-    //debugger
-    //this.setState({expenseItems:filteredData})
-
+    this.setState({expenseItems:clonedExpenseItems},()=>
+        localStorage.setItem("expenses", JSON.stringify(this.state.expenseItems))) //set state is asynchronous in event handlers
   }
 
   clearInputs() {
@@ -103,7 +78,6 @@ class App extends React.Component {
 
         </div>
     )
-
   }
 }
 
