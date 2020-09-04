@@ -1,8 +1,9 @@
-import React from 'react'
-import './App.css'
+import React from "react"
+import "./App.css"
 import Fields from './Components/Fields'
 import TableExpenses from "./Components/TableExpenses"
-import PropTypes from 'prop-types'
+import ErrorMessage from "./Components/ErrorMessage"
+import Header from "./Components/Header"
 //requires package rfdc
 
 class App extends React.Component {
@@ -14,6 +15,7 @@ class App extends React.Component {
       location:"",
       description:"",
       id:"",
+      fieldsEmpty:false,
       expenseItems:[
       ]
     }
@@ -21,6 +23,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.inputValidation = this.inputValidation.bind(this)
   }
   componentDidMount() {
     const data = localStorage.getItem("expenses") === null ? [] : JSON.parse(localStorage.getItem("expenses"))
@@ -40,7 +43,7 @@ class App extends React.Component {
 
   handleSubmit() {
     if ([this.state.amount,this.state.date,this.state.location,this.state.description].includes("")){
-      alert("Please fill out all fields!")
+      this.inputValidation()
       return
     }
     const clone = require('rfdc')()
@@ -59,6 +62,10 @@ class App extends React.Component {
         localStorage.setItem("expenses", JSON.stringify(this.state.expenseItems))) //set state is asynchronous in event handlers
   }
 
+  inputValidation() {
+    this.setState({fieldsEmpty:true},()=> setTimeout(()=>this.setState({fieldsEmpty:false}),2000))
+  }
+
   clearInputs() {
     const inputNodeList = document.getElementsByTagName("input")
     for (let input of inputNodeList){
@@ -69,7 +76,9 @@ class App extends React.Component {
   render() {
       return (
         <div>
-          <header>Expense Tracker</header>// restyle this
+          <Header/>
+          <br/>
+          <ErrorMessage filled={this.state.fieldsEmpty}/>
           <Fields handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
           <br/>
           <TableExpenses data={this.state.expenseItems} handleDelete={this.handleDelete}/>

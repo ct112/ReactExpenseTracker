@@ -20,22 +20,15 @@ function Fields(props){
                 <div className="input-group-prepend">
                     <span className="input-group-text">Location</span>
                 </div>
-                <input name="location" type="text" onChange={event => props.handleChange(event)}/>
+                <input name="location" type="text" placeholder="e.g. Home Depot" onChange={event => props.handleChange(event)}/>
             </div>
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
                     <span className="input-group-text">Description</span>
                 </div>
-                <input name = "description" type="text" onChange={event => props.handleChange(event)}/>
+                <input name = "description" type="text" placeholder="e.g. shovel" onChange={event => props.handleChange(event)}/>
             </div>
             <button type="submit" onClick={props.handleSubmit}>Submit</button>
-            {/*<label>Date:</label>*/}
-            {/*<input name="date" type="date" onChange={event => props.handleChange(event)}/>*/}
-            {/*<label>Location:</label>*/}
-            {/*<input name="location" type="text" onChange={event => props.handleChange(event)}/>*/}
-            {/*<label>Description:</label>*/}
-            {/*<input name = "description" type="text" onChange={event => props.handleChange(event)}/>*/}
-
         </div>
     )
 }
