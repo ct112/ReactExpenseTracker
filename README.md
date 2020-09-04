@@ -7,8 +7,7 @@ Calculator app written using React, Javascript, and Bootstrap 4.
 <br>
 
 
-Deployed to Heroku
-Try it [here](/)
+Deployed to Heroku [here](/)
 
 ## Author
 **Chris Tsui**
