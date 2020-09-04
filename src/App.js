@@ -55,7 +55,7 @@ class App extends React.Component {
     clonedExpenseItems.splice(index,1)
     this.setState({expenseItems:clonedExpenseItems},()=>
         localStorage.setItem("expenses", JSON.stringify(this.state.expenseItems))) //set state is asynchronous in event handlers
-  }
+  }                                                                                //whoops forgot to remove this when I added the life cycle method
 
   inputValidation() {
     this.setState({fieldsFilled:true},()=> setTimeout(()=>this.setState({fieldsFilled:false}),2000))
